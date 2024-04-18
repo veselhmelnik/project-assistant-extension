@@ -9,9 +9,7 @@
     "128": "icon.png"
   },
   "action": {
-    "default_popup": "popup.html",
-    "default_title": "PA_DEV",
-    "default_icon": "icon.png"
+
   },
   "permissions": ["storage"],
   "options_page": "options.html",
