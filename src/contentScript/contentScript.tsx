@@ -1,21 +1,25 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import ReactDOM from 'react-dom'
 import LoginForm from '../components/LoginForm'
 import { Box } from '@mui/material'
 import { Messages } from '../utils/messages'
-
-
-import '@fontsource/roboto/300.css'
-import '@fontsource/roboto/400.css'
-import '@fontsource/roboto/500.css'
-import '@fontsource/roboto/700.css'
 import './contentScript.css'
 
 const App: React.FC<{}> = () => {
-    const [width, setWidth] = useState(0)
+  const [width, setWidth] = useState(0)
+
+  useEffect(() => {
+    document.body.addEventListener('click', (e) => {
+      let x = e.clientX
+      let screenWidth = document.body.clientWidth
+      if (screenWidth - x > 350)
+      setWidth(0)
+     })
+  },[])
+
   chrome.runtime.onMessage.addListener((msg) => {
-    if (msg===Messages.TOGGLE_SIDE_PANEL) {
-        toggleSidePanel()
+    if (msg === Messages.TOGGLE_SIDE_PANEL) {
+      toggleSidePanel()
     }
   })
 

@@ -1,3 +1,14 @@
-.select-list {
-    z-index: 999999;
+input {
+    height: 4.5rem!important;
+}
+
+.form-username {
+    margin-top: 15px;
+    margin-bottom: 5px;
+}
+
+#submit-btn{
+    margin-top: 25px;
+    font-size: 1.45rem;
+    width: 100%;
 }
