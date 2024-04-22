@@ -1,35 +1,46 @@
 import React, { useEffect, useState } from 'react'
 import ReactDOM from 'react-dom'
 import LoginForm from '../components/LoginForm'
+import WorkForm from '../components/WorkForm'
 import { Box } from '@mui/material'
 import { Messages } from '../utils/messages'
+import { UserInfo, getUserInfo } from '../utils/storage'
 import './contentScript.css'
 
+const PANEL_WIDTH = 400
+
 const App: React.FC<{}> = () => {
-  const [width, setWidth] = useState(0)
+  const [width, setWidth] = useState<number>(0)
+  const [info, setInfo] = useState<UserInfo>({ nickName: '', email: '' })
+
+  if (!chrome.runtime.onMessage.hasListeners()) {
+    chrome.runtime.onMessage.addListener((msg) => {
+      if (msg === Messages.TOGGLE_SIDE_PANEL) {
+        toggleSidePanel()
+      }
+    })
+  }
 
   useEffect(() => {
-    document.body.addEventListener('click', (e) => {
-      let x = e.clientX
-      let screenWidth = document.body.clientWidth
-      if (screenWidth - x > 350)
-      setWidth(0)
-     })
-  },[])
+    getUserInfo().then((info) => setInfo({ ...info }))
+  }, [])
 
-  chrome.runtime.onMessage.addListener((msg) => {
-    if (msg === Messages.TOGGLE_SIDE_PANEL) {
-      toggleSidePanel()
-    }
-  })
+  useEffect(() => {
+    document.body.addEventListener('click', (e) => hidePanel(e.clientX))
+  }, [])
+
+  const hidePanel = (coordinate: number) => {
+    let screenWidth = document.body.clientWidth
+    if (screenWidth - coordinate > PANEL_WIDTH) setWidth(0)
+  }
 
   function toggleSidePanel() {
-    setWidth(width === 0 ? 350 : 0)
+    setWidth((prev) => (prev === 0 ? PANEL_WIDTH : 0))
   }
 
   return (
     <Box width={width} className="side-frame">
-      <LoginForm></LoginForm>
+      {info.nickName === '' ? <LoginForm /> : <WorkForm />}
     </Box>
   )
 }

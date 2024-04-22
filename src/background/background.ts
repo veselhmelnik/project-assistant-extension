@@ -1,8 +1,13 @@
 import { Messages } from "../utils/messages"
+import { setUserInfo } from "../utils/storage"
 
-// TODO: background script
 chrome.runtime.onInstalled.addListener(() => {
-  // TODO: on installed function
+  chrome.runtime.onInstalled.addListener(() => {
+    setUserInfo({
+      nickName: '',
+      email: ''
+    })
+  })
 })
 
 chrome.action.onClicked.addListener(tab => {

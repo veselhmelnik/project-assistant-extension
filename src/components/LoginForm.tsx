@@ -12,9 +12,6 @@ const LoginForm: React.FC<{}> = () => {
     const info = { nickName, email }
     setUserInfo(info)
   }
-  // const a = () => {
-  //   getUserInfo().then((res) => console.log(res))
-  // }
 
   const dataList = (list: string[], optionId: string) => {
     list.sort()
@@ -65,7 +62,6 @@ const LoginForm: React.FC<{}> = () => {
       >
         Submit
       </Button>
-      {/* <Button onClick={a}>asdf</Button> */}
     </Box>
   )
 }
