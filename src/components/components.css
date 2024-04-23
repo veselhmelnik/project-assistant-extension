@@ -7,8 +7,19 @@ input {
     margin-bottom: 5px;
 }
 
-#submit-btn{
+#submit-btn {
     margin-top: 25px;
     font-size: 1.45rem;
     width: 100%;
+}
+
+#dropdown-menu {
+    z-index: 0!important;
+}
+
+.fetch-buttons {
+    width: 100%;
+}
+.fetch-buttons button {
+    font-size: 1.45rem;
 }

@@ -4,7 +4,7 @@ import LoginForm from '../components/LoginForm'
 import WorkForm from '../components/WorkForm'
 import { Box } from '@mui/material'
 import { Messages } from '../utils/messages'
-import { UserInfo, getUserInfo } from '../utils/storage'
+import { UserInfo, getUserInfo, setUserInfo } from '../utils/storage'
 import './contentScript.css'
 
 const PANEL_WIDTH = 400
@@ -29,6 +29,16 @@ const App: React.FC<{}> = () => {
     document.body.addEventListener('click', (e) => hidePanel(e.clientX))
   }, [])
 
+  const handleLoginButtonClick = (newInfo:UserInfo): void => {
+    setInfo({ ...newInfo })
+    setUserInfo(newInfo)
+  }
+
+  const handleLogoutButtonClick = (): void => {
+    setInfo({ nickName: '', email: '' })
+    setUserInfo(info)
+  }
+
   const hidePanel = (coordinate: number) => {
     let screenWidth = document.body.clientWidth
     if (screenWidth - coordinate > PANEL_WIDTH) setWidth(0)
@@ -40,7 +50,14 @@ const App: React.FC<{}> = () => {
 
   return (
     <Box width={width} className="side-frame">
-      {info.nickName === '' ? <LoginForm /> : <WorkForm />}
+      {info.nickName === '' ? (
+        <LoginForm handleLoginButtonClick={handleLoginButtonClick} />
+      ) : (
+        <WorkForm
+          info={info}
+          handleLogoutButtonClick={handleLogoutButtonClick}
+        />
+      )}
     </Box>
   )
 }

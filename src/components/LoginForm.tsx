@@ -2,16 +2,13 @@ import { Box, Button, Typography } from '@mui/material'
 import React, { useState } from 'react'
 import { emailList, nickList } from '../utils/teamList'
 import './components.css'
-import { getUserInfo, setUserInfo } from '../utils/storage'
+import { UserInfo } from '../utils/storage'
 
-const LoginForm: React.FC<{}> = () => {
+const LoginForm: React.FC<{
+  handleLoginButtonClick: (info: UserInfo) => void
+}> = ({ handleLoginButtonClick }) => {
   const [nickName, setNickName] = useState<string>('')
   const [email, setEmail] = useState<string>('')
-
-  const handleLoginDataClick = () => {
-    const info = { nickName, email }
-    setUserInfo(info)
-  }
 
   const dataList = (list: string[], optionId: string) => {
     list.sort()
@@ -57,7 +54,7 @@ const LoginForm: React.FC<{}> = () => {
       {dataList(emailList, 'emailListOptions')}
       <Button
         id="submit-btn"
-        onClick={handleLoginDataClick}
+        onClick={() => handleLoginButtonClick({ nickName, email })}
         variant="contained"
       >
         Submit
