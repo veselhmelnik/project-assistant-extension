@@ -22,4 +22,5 @@ input {
 }
 .fetch-buttons button {
     font-size: 1.45rem;
+    font-weight: 700;
 }

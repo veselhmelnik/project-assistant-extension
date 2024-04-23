@@ -10,7 +10,7 @@ import {
   Typography,
 } from '@mui/material'
 import LogoutIcon from '@mui/icons-material/Logout'
-import { grey, teal } from '@mui/material/colors'
+import { grey, teal, yellow } from '@mui/material/colors'
 import React from 'react'
 import './components.css'
 import { UserInfo } from '../utils/storage'
@@ -42,9 +42,9 @@ const WorkForm: React.FC<{
       <Divider />
       <CardContent>
         <ButtonGroup orientation='vertical' className='fetch-buttons'>
-          <Button variant='contained'>2D in Progress</Button>
+          <Button variant='contained' >2D in Progress</Button>
           <Button variant='contained'>Ready for QA</Button>
-          <Button variant='contained'>QA Assigned</Button>
+          <Button variant='contained' >QA Assigned</Button>
           <Button variant='contained'>Finished</Button>
         </ButtonGroup>
       </CardContent>
