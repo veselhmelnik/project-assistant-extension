@@ -17,10 +17,13 @@ input {
     z-index: 0!important;
 }
 
-.fetch-buttons {
+.content-container button {
     width: 100%;
-}
-.fetch-buttons button {
     font-size: 1.45rem;
     font-weight: 700;
 }
+
+.fetch-buttons {
+    width: 100%;
+}
+

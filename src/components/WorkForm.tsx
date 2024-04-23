@@ -1,5 +1,6 @@
 import {
   Avatar,
+  Box,
   Button,
   ButtonGroup,
   Card,
@@ -20,7 +21,7 @@ const WorkForm: React.FC<{
   handleLogoutButtonClick: () => void
 }> = ({ info, handleLogoutButtonClick }) => {
   return (
-    <Card sx={{ maxWidth: '90%', margin: '100px auto' }}>
+    <Card sx={{ maxWidth: '90%', margin: ' 20px auto', minHeight: '95%' }}>
       <CardHeader
         avatar={<Avatar sx={{ bgcolor: teal[500] }}>{info.nickName[0]}</Avatar>}
         action={
@@ -40,13 +41,20 @@ const WorkForm: React.FC<{
         }
       />
       <Divider />
-      <CardContent>
+      <CardContent className='content-container'>
+        <Box mb={3}>
         <ButtonGroup orientation='vertical' className='fetch-buttons'>
           <Button variant='contained' >2D in Progress</Button>
           <Button variant='contained'>Ready for QA</Button>
           <Button variant='contained' >QA Assigned</Button>
           <Button variant='contained'>Finished</Button>
         </ButtonGroup>
+        </Box>
+        <Divider />
+        <Box mt={3}>
+            <Button variant='outlined' className='check-button'>Check Rooms</Button>
+        </Box>
+        
       </CardContent>
     </Card>
   )
