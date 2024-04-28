@@ -11,7 +11,7 @@
   "action": {
 
   },
-  "permissions": ["storage"],
+  "permissions": ["storage", "identity"],
   "options_page": "options.html",
   "background": {
     "service_worker": "background.js"
@@ -21,5 +21,11 @@
       "matches": ["<all_urls>"],
       "js": ["contentScript.js"]
     }
-  ]
+  ],
+  "oauth2": {
+    "client_id": "950439878426-ng7s8e3dm48qv42m9grvq4e8m6ae3mal.apps.googleusercontent.com",
+    "scopes": [
+      "https://www.googleapis.com/auth/drive"
+    ]
+  }
 }

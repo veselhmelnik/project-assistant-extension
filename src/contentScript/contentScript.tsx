@@ -35,7 +35,7 @@ const App: React.FC<{}> = () => {
   }
 
   const handleLogoutButtonClick = (): void => {
-    setInfo({ nickName: '', email: '' })
+    setInfo({ nickName: '', email: ''})
     setUserInfo(info)
   }
 
