@@ -16,37 +16,36 @@ export interface projectInfo  {
 
 
 const useInfo = () => {
-    const [info, setInfo] = useState<projectInfo>();
 
-    useEffect(() => {
-        const table = document.getElementById("logs-container");
-        let takenTime: string;
-        const rows = table.querySelectorAll("tr");
-        for (let i = 0; i < rows.length; i++) {
-            if (rows[i].innerHTML.includes("[assign]") && rows[i + 1]) {
-              const time = rows[i + 1]
-                .querySelectorAll("td")[1]
-                .innerHTML.slice(11, 16);
-              takenTime = time;
-              break;
-            }
+    async function getDataFromWebPage() {
+      const table = document.getElementById("logs-container");
+      let takenTime: string;
+      const rows = table.querySelectorAll("tr");
+      for (let i = 0; i < rows.length; i++) {
+          if (rows[i].innerHTML.includes("[assign]") && rows[i + 1]) {
+            const time = rows[i + 1]
+              .querySelectorAll("td")[1]
+              .innerHTML.slice(11, 16);
+            takenTime = time;
+            break;
           }
-        const paragraphs = document.querySelectorAll("p");
-        const name = paragraphs[0].innerHTML.slice(1, -110).trim();
-        let org = paragraphs[2].innerHTML.slice(35, -98).trim();
-        org =
-        classArr.filter((item) => item === org).length === 1
-          ? "Quicken Loans"
-          : org;
-      const projectPackage = getPackage(org, classArr);
-      const floors =
-      document.getElementById("floors-tab").querySelectorAll("h4 .btn-group")
-        .length / 2;
-        const idReg = /(?<=project=).{10}/g;
-        const projectId = window.location.toString().match(idReg)[0]
-        const time = getTime();
+        }
+      const paragraphs = document.querySelectorAll("p");
+      const name = paragraphs[0].innerHTML.slice(1, -110).trim();
+      let org = paragraphs[2].innerHTML.slice(35, -98).trim();
+      org =
+      classArr.filter((item) => item === org).length === 1
+        ? "Quicken Loans"
+        : org;
+    const projectPackage = getPackage(org, classArr);
+    const floors =
+    document.getElementById("floors-tab").querySelectorAll("h4 .btn-group")
+      .length / 2;
+      const idReg = /(?<=project=).{10}/g;
+      const projectId = window.location.toString().match(idReg)[0]
+      const time = getTime();
 
-      setInfo({
+      const info:projectInfo = {
         name,
         organization: org,
         floorsNumber: floors,
@@ -55,9 +54,10 @@ const useInfo = () => {
         totalTime: time.totalTime,
         qaTime: time.qaTime,
         takenTime
-      })
+      }
 
-    },[])
+    return info
+    }
 
     function getPackage(org: string, arr: string[]): string {
         if (org === "Quicken Loans") {
@@ -92,7 +92,7 @@ const useInfo = () => {
       }
 
 
-    return {info}
+    return {getDataFromWebPage}
   
 }
 
