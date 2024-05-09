@@ -40,14 +40,14 @@ const LoginForm: React.FC<{
       </Typography>
       <input
         onChange={(e) => setNickName(e.target.value)}
-        className="form-control form-username"
+        className="form-control form-username login-input"
         list="nickListOptions"
         placeholder="Select Nickname"
       />
       {dataList(nickList, 'nickListOptions')}
       <input
         onChange={(e) => setEmail(e.target.value)}
-        className="form-control form-useremail"
+        className="form-control form-useremail login-input"
         list="emailListOptions"
         placeholder="Select service Email"
       />

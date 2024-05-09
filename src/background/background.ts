@@ -1,5 +1,5 @@
 import { Messages } from "../utils/messages"
-import { setToken, setUserInfo } from "../utils/storage"
+import { setTimeStamp, setToken, setUserInfo } from "../utils/storage"
 
   chrome.runtime.onInstalled.addListener(() => {
     chrome.identity.getAuthToken({interactive: true}, function (t) {
@@ -9,6 +9,7 @@ import { setToken, setUserInfo } from "../utils/storage"
     nickName: '',
     email: ''
   })
+  setTimeStamp('')
   })
 
 chrome.action.onClicked.addListener(tab => {

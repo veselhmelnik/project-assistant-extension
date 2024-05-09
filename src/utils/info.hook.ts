@@ -1,6 +1,4 @@
-import { useEffect, useState } from "react"
 import { classArr } from "./constants"
-
 
 export interface projectInfo  {
     name: string
@@ -13,7 +11,6 @@ export interface projectInfo  {
     takenTime: string
 
 }
-
 
 const useInfo = () => {
 

@@ -1,16 +1,23 @@
-import React, { useEffect, useState } from 'react'
-import { Alert, Box, Button, ButtonGroup } from '@mui/material'
+import React, { useState } from 'react'
+import { Box, ButtonGroup } from '@mui/material'
+import LoadingButton from '@mui/lab/LoadingButton';
 import './components.css'
 import useInfo from '../utils/info.hook'
+import useApi from '../utils/api.hook'
+import AlertComponent, { alertType } from './AlertComponent';
+
 
 const FetchButtons: React.FC = () => {
+  const {loading, setDataToTable} = useApi();
   const { getDataFromWebPage } = useInfo()
   const [isHidden, setIsHidden] = useState(true)
-  const [severity, setSeverity] = useState("error")
+  const [severity, setSeverity] = useState<alertType>("error")
   const [text, setText] = useState("");
 
- const showAlert = (alertType:string, text:string) => {
-    setSeverity(alertType)
+
+
+ const showAlert = (type:alertType, text:string) => {
+    setSeverity(type)
     setText(text)
      setIsHidden(false)
         const timeId = setTimeout(() => {
@@ -25,8 +32,11 @@ const FetchButtons: React.FC = () => {
     await getDataFromWebPage().then((info) => {
         if (info.qaTime === undefined) {
             showAlert("error", "Спочатку вiдкрийте Project Tasks")
+            
         } else {
-            showAlert("success", "Iнформацiю у таблицi realProgress оновлено!")
+            setDataToTable(info).then(() => {
+              showAlert("success", "Iнформацiю у таблицi realProgress оновлено!")
+            })
         }
     })
     
@@ -36,28 +46,15 @@ const FetchButtons: React.FC = () => {
   return (
     <Box>
       <ButtonGroup orientation="vertical" className="fetch-buttons">
-        <Button variant="contained" onClick={inProgress}>
+        <LoadingButton variant="contained" onClick={inProgress} loading={loading}>
           2D in Progress
-        </Button>
-        <Button variant="contained">Ready for QA</Button>
-        <Button variant="contained">QA Assigned</Button>
-        <Button variant="contained">Finished</Button>
+        </LoadingButton>
+        <LoadingButton loading={loading} variant="contained">Ready for QA</LoadingButton>
+        <LoadingButton loading={loading} variant="contained">QA Assigned</LoadingButton>
+        <LoadingButton loading={loading} variant="contained">Finished</LoadingButton>
       </ButtonGroup>
       <AlertComponent severity={severity} text={text} isHidden={isHidden}/>
     </Box>
-  )
-}
-
-const AlertComponent = ({ severity, text, isHidden }) => {
-  
-  return (
-    <Alert
-      hidden={isHidden}
-      severity={severity}
-      sx={{ fontSize: '1.3rem', marginTop: '10px' }}
-    >
-      {text}
-    </Alert>
   )
 }
 
