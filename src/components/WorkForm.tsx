@@ -67,7 +67,6 @@ const TimeStampTextField = () => {
   const [color, setColor] = useState('success')
   useEffect(() => {
     const currentDate = new Date()
-    console.log(currentDate.toDateString)
   }, [])
   return (
     <TextField
