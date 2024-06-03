@@ -4,8 +4,10 @@ import LoginForm from '../components/LoginForm'
 import WorkForm from '../components/WorkForm'
 import { Box } from '@mui/material'
 import { Messages } from '../utils/messages'
-import { UserInfo, getUserInfo, setUserInfo } from '../utils/storage'
+import { getAssignedHtml } from '../utils/pmFilter'
+import { UserInfo, getUserInfo, setTimeStamp, setUserInfo } from '../utils/storage'
 import './contentScript.css'
+import { hidePhotos } from '../utils/hideListingPhotos'
 
 const PANEL_WIDTH = 400
 
@@ -23,6 +25,8 @@ const App: React.FC<{}> = () => {
 
   useEffect(() => {
     getUserInfo().then((info) => setInfo({ ...info }))
+    getAssignedHtml()
+    hidePhotos()
   }, [])
 
   useEffect(() => {
@@ -36,6 +40,7 @@ const App: React.FC<{}> = () => {
 
   const handleLogoutButtonClick = (): void => {
     setInfo({ nickName: '', email: ''})
+    setTimeStamp('')
     setUserInfo(info)
   }
 

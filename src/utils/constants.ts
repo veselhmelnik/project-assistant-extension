@@ -1,7 +1,5 @@
-// export const DEV_SPREADSHEET_ID = "190-ygHQlbNlPSjojI53GATZNJA0_OrhNHch6L_nU-Cs"
-export const DEV_SPREADSHEET_ID = "190-ygHQlbNlPSjojI53GATZNJA0_OrhNHch6L_nU-Cs"
-export const API_KEY = "AIzaSyC2obvQaNQbEc8eAATYAc00AE-GPRwgpzU"
-// export const API_KEY = "AIzaSyC2obvQaNQbEc8eAATYAc00AE-GPRwgpzU"
+export const DEV_SPREADSHEET_ID = "1HJYsi__Tzkum3eNi3ucl9VKbcYVQds3Xy7nmnezxUNM"
+export const API_KEY = "AIzaSyDes7hwsmGXMw3usAQlJxVrxeQk2-uIo3U"
 
 export const classArr = [
     "ServiceLink",

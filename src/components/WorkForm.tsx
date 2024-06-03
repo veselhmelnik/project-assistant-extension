@@ -15,13 +15,16 @@ import LogoutIcon from '@mui/icons-material/Logout'
 import { grey, teal } from '@mui/material/colors'
 import React, { useEffect, useState } from 'react'
 import './components.css'
-import { UserInfo } from '../utils/storage'
+import { UserInfo, getTimeStamp, setTimeStamp } from '../utils/storage'
 import FetchButtons from './FetchButtons'
+import CheckRoomsList from './CheckRoomsList'
+
 
 const WorkForm: React.FC<{
   info: UserInfo
   handleLogoutButtonClick: () => void
 }> = ({ info, handleLogoutButtonClick }) => {
+  
   return (
     <Card sx={{ maxWidth: '90%', margin: ' 20px auto', minHeight: '95%' }}>
       <CardHeader
@@ -53,10 +56,9 @@ const WorkForm: React.FC<{
           <FetchButtons />
         </Box>
         <Divider />
-        <Box mt={3}>
-          <Button variant="outlined" className="check-button">
-            Check Rooms
-          </Button>
+        
+        <Box>
+          <CheckRoomsList/>
         </Box>
       </CardContent>
     </Card>
@@ -64,16 +66,39 @@ const WorkForm: React.FC<{
 }
 
 const TimeStampTextField = () => {
-  const [color, setColor] = useState('success')
+  type colorType = 'success' | 'error'
+  const [value, setValue] = useState('') 
+  const [color, setColor] = useState<colorType>('success')
+
   useEffect(() => {
-    const currentDate = new Date()
+    getTimeStamp().then(timeStamp => setValue(timeStamp))
   }, [])
+
+  useEffect(() => {
+    let day = +value.slice(0, -1)
+    let dateNow = new Date()
+    let checkingDate = new Date (dateNow.getFullYear(), dateNow.getMonth(),day, value.slice(-1) === 'n' ? 20 : 8, 30)
+    let diff = dateNow.getTime()-checkingDate.getTime()
+    if (diff < 0 || diff > 43200000) {
+      setColor('error')
+  } else {
+    setColor('success')
+  }
+  }, [value])
+
+  const handleChange = (e) => {
+    setValue(e.target.value)
+    setTimeStamp(e.target.value)
+  }
+
+
   return (
     <TextField
     focused
-    value="15n"
+    onChange={handleChange}
+    value={value}
     variant="outlined"
-    color="warning"
+    color={color}
     InputProps={{
       startAdornment: (
         <InputAdornment 
